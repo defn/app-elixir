@@ -14,6 +14,7 @@ function bootstrap {
   (set +f; rm -f "$shome/install/bin"/*.bat)
 
   mix local.hex --force
+  mix local.rebar --force
 }
 
 bootstrap
