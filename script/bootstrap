@@ -9,9 +9,11 @@ function bootstrap {
   local tmp_elixir="$(mktemp -t XXXXXX)"
   trap "$(printf "rm -f '%q'" "$tmp_elixir")" EXIT
   curl -L -o "$tmp_elixir" "$url_elixir"
-  (cd "$shome/install"; unzip "$tmp_elixir")
 
+  (cd "$shome/install"; unzip "$tmp_elixir")
   (set +f; rm -f "$shome/install/bin"/*.bat)
+
+  mix local.hex --force
 }
 
 bootstrap
