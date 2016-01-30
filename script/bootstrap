@@ -8,7 +8,7 @@ function bootstrap {
 
   local tmp_elixir="$(mktemp -t XXXXXX)"
   trap "$(printf "rm -f '%q'" "$tmp_elixir")" EXIT
-  curl -s -L -o "$tmp_elixir" "$url_elixir"
+  curl -sS -L -o "$tmp_elixir" "$url_elixir"
 
   (cd "$shome/install"; unzip -o "$tmp_elixir")
   (set +f; rm -f "$shome/install/bin"/*.bat)
