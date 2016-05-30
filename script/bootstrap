@@ -4,17 +4,25 @@ function bootstrap {
   local shome="$(cd -P -- "$(dirname -- "$BASH_SOURCE")/.." && pwd -P)"
   source "$shome/script/profile"
 
-  local url_elixir='https://github.com/elixir-lang/elixir/releases/download/v1.2.4/Precompiled.zip'
+  case "$(uname -s)" in
+    Darwin)
+      local url_elixir='https://github.com/elixir-lang/elixir/releases/download/v1.2.4/Precompiled.zip'
 
-  local tmp_elixir="$(mktemp -t XXXXXX)"
-  trap "$(printf "rm -f '%q'" "$tmp_elixir")" EXIT
-  curl -sS -L -o "$tmp_elixir" "$url_elixir"
+      local tmp_elixir="$(mktemp -t XXXXXX)"
+      trap "$(printf "rm -f '%q'" "$tmp_elixir")" EXIT
+      curl -sS -L -o "$tmp_elixir" "$url_elixir"
 
-  (cd "$shome/install"; unzip -o "$tmp_elixir")
-  (set +f; rm -f "$shome/install/bin"/*.bat)
+      (cd "$shome/install"; unzip -o "$tmp_elixir")
+      (set +f; rm -f "$shome/install/bin"/*.bat)
 
-  mix local.hex --force
-  mix local.rebar --force
+      mix local.hex --force
+      mix local.rebar --force
+      ;;
+
+    Linux)
+      sudo aptitude install -y elixir
+      ;;
+  esac
 }
 
 bootstrap
