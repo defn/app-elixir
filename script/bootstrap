@@ -4,7 +4,7 @@ function bootstrap {
   local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
   source "$shome/script/profile"
 
-  local url_elixir='https://github.com/elixir-lang/elixir/releases/download/v1.3.3/Precompiled.zip'
+  local url_elixir="https://github.com/elixir-lang/elixir/releases/download/v${ELIXIR_VERSION}/Precompiled.zip"
 
   local tmp_elixir="$(mktemp -t XXXXXX)"
   trap "$(printf "rm -f '%q'" "$tmp_elixir")" EXIT

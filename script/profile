@@ -3,6 +3,8 @@
 function profile {
   local shome="${_elixir_home:-"$(cd -P -- "$(dirname -- "$BASH_SOURCE")/.." && pwd -P)"}"
   PATH="$shome/bin:$shome/install/bin:$PATH"
+
+  ELIXIR_VERSION='1.3.4'
 }
 
 profile
